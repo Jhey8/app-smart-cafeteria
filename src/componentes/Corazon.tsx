@@ -18,18 +18,20 @@ export function Corazon({ idProducto, nombre, sobreFoto = false, tamano = 22 }: 
             accessibilityRole="button"
             accessibilityState={{ selected: marcado }}
             accessibilityLabel={marcado ? `Quitar ${nombre} de favoritos` : `Agregar ${nombre} a favoritos`}
-            style={sobreFoto ? estilos.sobreFoto : undefined}
+            style={sobreFoto ? estilos.sobreFoto : estilos.enFila}
         >
             <Icono nombre={marcado ? "corazonLleno" : "corazon"} color={marcado ? colores.acento : sobreFoto ? colores.texto : colores.suave} tamano={tamano} />
         </Pressable>
     );
 }
 
+// Las dos variantes miden 44 × 44: el área mínima para tocar sin errar (WCAG 2.5.5).
 const estilos = StyleSheet.create({
+    enFila: { width: 44, height: 44, alignItems: "center", justifyContent: "center" },
     sobreFoto: {
-        width: 42,
-        height: 42,
-        borderRadius: 21,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
         backgroundColor: "rgba(255, 255, 255, 0.95)",
         alignItems: "center",
         justifyContent: "center",

@@ -130,19 +130,21 @@ export function CarruselDeHoy({ menu, titulo = "Hoy en el menú", soloFavoritos 
                                 </Text>
                                 <View style={estilos.pieDelPlato}>
                                     <Text style={estilos.precio}>{soles(item.precio)}</Text>
-                                    <Pressable
-                                        onPress={() => {
-                                            carrito.agregar(item);
-                                            avisar(`Agregado: ${item.nombre}`);
-                                        }}
-                                        accessibilityRole="button"
-                                        accessibilityLabel={`Agregar ${item.nombre}`}
-                                        hitSlop={6}
-                                        style={({ pressed }) => [estilos.mas, pressed && { opacity: 0.8 }]}
-                                    >
-                                        <Icono nombre="mas" color={colores.acentoProfundo} tamano={16} />
-                                    </Pressable>
                                 </View>
+                            </View>
+                        </Pressable>
+                        {/* Al lado de la tarjeta y no dentro: en la web un botón no puede contener otro (WCAG 4.1.2). */}
+                        <Pressable
+                            onPress={() => {
+                                carrito.agregar(item);
+                                avisar(`Agregado: ${item.nombre}`);
+                            }}
+                            accessibilityRole="button"
+                            accessibilityLabel={`Agregar ${item.nombre}`}
+                            style={({ pressed }) => [estilos.areaDelMas, pressed && { opacity: 0.8 }]}
+                        >
+                            <View style={estilos.mas}>
+                                <Icono nombre="mas" color={colores.acentoProfundo} tamano={16} />
                             </View>
                         </Pressable>
                     </View>
@@ -169,7 +171,10 @@ const estilos = StyleSheet.create({
     fotoDelPlato: { width: "100%", height: 108 },
     cuerpoDelPlato: { padding: espacio.s, paddingTop: 6, gap: 6, flex: 1 },
     nombreDelPlato: { fontSize: 15, fontWeight: "600", color: colores.texto, minHeight: 38 },
-    pieDelPlato: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: "auto" },
+    // minHeight deja el espacio del botón «+», que va encima en la esquina.
+    pieDelPlato: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: "auto", minHeight: 36 },
+    // El círculo se ve de 30 px, pero el área que se toca mide 44 × 44 (WCAG 2.5.5).
+    areaDelMas: { position: "absolute", right: 0, bottom: 0, width: 44, height: 44, alignItems: "center", justifyContent: "center" },
     precio: { fontSize: 15, fontWeight: "700", color: colores.acento },
     mas: { width: 30, height: 30, borderRadius: 15, backgroundColor: colores.calido, alignItems: "center", justifyContent: "center" },
 });

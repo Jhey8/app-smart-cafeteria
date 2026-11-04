@@ -133,40 +133,43 @@ function normalizar(texto: string): string {
 
 function TarjetaDeProducto({ producto }: { producto: Producto }) {
     return (
-        <Pressable
-            onPress={() => router.push(`/producto/${producto.id}`)}
-            accessibilityRole="button"
-            accessibilityLabel={`${producto.nombre}, ${soles(producto.precio)}${producto.disponible ? "" : ", agotado"}`}
-            style={({ pressed }) => [estilos.tarjeta, pressed && { opacity: 0.85 }, !producto.disponible && { opacity: 0.6 }]}
-        >
-            <FotoDelProducto imagenUrl={producto.imagenUrl} estilo={estilos.foto} />
-            <View style={{ flex: 1, gap: 4 }}>
-                <View style={{ flexDirection: "row", alignItems: "flex-start", gap: espacio.s }}>
-                    <Text style={[texto.fuerte, { flex: 1 }]} numberOfLines={2}>
+        <View>
+            <Pressable
+                onPress={() => router.push(`/producto/${producto.id}`)}
+                accessibilityRole="button"
+                accessibilityLabel={`${producto.nombre}, ${soles(producto.precio)}${producto.disponible ? "" : ", agotado"}`}
+                style={({ pressed }) => [estilos.tarjeta, pressed && { opacity: 0.85 }, !producto.disponible && { opacity: 0.6 }]}
+            >
+                <FotoDelProducto imagenUrl={producto.imagenUrl} estilo={estilos.foto} />
+                <View style={{ flex: 1, gap: 4 }}>
+                    <Text style={[texto.fuerte, estilos.nombreJuntoAlCorazon]} numberOfLines={2}>
                         {producto.nombre}
                     </Text>
-                    <Corazon idProducto={producto.id} nombre={producto.nombre} tamano={20} />
-                </View>
-                {producto.descripcion && (
-                    <Text style={texto.nota} numberOfLines={2}>
-                        {producto.descripcion}
-                    </Text>
-                )}
-                <View style={estilos.pieDeTarjeta}>
-                    <Text style={estilos.precio}>{soles(producto.precio)}</Text>
-                    {!producto.disponible ? (
-                        <Chip tono="error">Agotado</Chip>
-                    ) : (
-                        producto.minutosPreparacion > 0 && (
-                            <View style={estilos.tiempo}>
-                                <Icono nombre="reloj" color={colores.suave} tamano={14} />
-                                <Text style={texto.nota}>{producto.minutosPreparacion} min</Text>
-                            </View>
-                        )
+                    {producto.descripcion && (
+                        <Text style={texto.nota} numberOfLines={2}>
+                            {producto.descripcion}
+                        </Text>
                     )}
+                    <View style={estilos.pieDeTarjeta}>
+                        <Text style={estilos.precio}>{soles(producto.precio)}</Text>
+                        {!producto.disponible ? (
+                            <Chip tono="error">Agotado</Chip>
+                        ) : (
+                            producto.minutosPreparacion > 0 && (
+                                <View style={estilos.tiempo}>
+                                    <Icono nombre="reloj" color={colores.suave} tamano={14} />
+                                    <Text style={texto.nota}>{producto.minutosPreparacion} min</Text>
+                                </View>
+                            )
+                        )}
+                    </View>
                 </View>
+            </Pressable>
+            {/* Al lado de la tarjeta y no dentro: en la web un botón no puede contener otro (WCAG 4.1.2). */}
+            <View style={estilos.corazonDeTarjeta}>
+                <Corazon idProducto={producto.id} nombre={producto.nombre} tamano={20} />
             </View>
-        </Pressable>
+        </View>
     );
 }
 
@@ -190,6 +193,9 @@ const estilos = StyleSheet.create({
     lista: { padding: espacio.l, gap: espacio.m },
     tarjeta: { flexDirection: "row", gap: espacio.m, backgroundColor: colores.superficie, borderRadius: radio.grande, padding: espacio.m, ...sombra },
     foto: { width: 92, height: 92, borderRadius: radio.medio },
+    // El nombre deja libre la esquina donde va el corazón.
+    nombreJuntoAlCorazon: { paddingRight: 36 },
+    corazonDeTarjeta: { position: "absolute", top: 4, right: 4 },
     pieDeTarjeta: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: "auto" },
     precio: { fontSize: 17, fontWeight: "700", color: colores.acento },
     tiempo: { flexDirection: "row", alignItems: "center", gap: 4 },
