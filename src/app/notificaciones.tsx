@@ -93,7 +93,7 @@ function FilaDeAviso({ aviso, nueva }: { aviso: Aviso; nueva: boolean }) {
             <View style={{ flex: 1, gap: 2 }}>
                 <Text style={texto.fuerte}>{aviso.titulo}</Text>
                 <Text style={[texto.cuerpo, { color: colores.suave, fontSize: 15 }]}>{aviso.cuerpo}</Text>
-                <Text style={[texto.nota, { fontSize: 13 }]}>{diaYHora(aviso.creadaEn)}</Text>
+                <Text style={texto.nota}>{diaYHora(aviso.creadaEn)}</Text>
             </View>
             {nueva && <View style={estilos.punto} accessibilityLabel="Nueva" />}
         </Pressable>

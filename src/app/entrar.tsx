@@ -95,5 +95,5 @@ const estilos = StyleSheet.create({
     textoDelPie: { fontSize: 15, color: "rgba(255, 255, 255, 0.85)" },
     enlace: { fontSize: 15, fontWeight: "800", color: colores.calido },
     olvide: { fontSize: 15, fontWeight: "700", color: colores.superficie, textAlign: "center" },
-    legal: { fontSize: 13, color: "rgba(255, 255, 255, 0.75)", textAlign: "center", textDecorationLine: "underline" },
+    legal: { fontSize: 14, color: "rgba(255, 255, 255, 0.9)", textAlign: "center", textDecorationLine: "underline" },
 });

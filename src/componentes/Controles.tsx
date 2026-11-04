@@ -165,6 +165,6 @@ const estilos = StyleSheet.create({
     campoSobreAzul: { backgroundColor: colores.superficie, borderColor: colores.superficie },
     campoRedondo: { borderRadius: radio.pildora, backgroundColor: colores.fondo, borderColor: colores.fondo, minHeight: 54, paddingHorizontal: espacio.xl },
     chip: { alignSelf: "flex-start", borderRadius: radio.pildora, paddingHorizontal: 10, paddingVertical: 4 },
-    textoDeChip: { fontSize: 13, fontWeight: "600" },
+    textoDeChip: { fontSize: 14, fontWeight: "600" },
     aviso: { backgroundColor: colores.errorClaro, borderRadius: radio.medio, padding: espacio.m },
 });

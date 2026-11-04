@@ -150,5 +150,5 @@ const estilos = StyleSheet.create({
     parrafo: { fontSize: 15, lineHeight: 22, color: colores.suave },
     proveedor: { marginTop: espacio.xl, padding: espacio.l, borderRadius: radio.grande, backgroundColor: colores.fondo, gap: 2 },
     tituloProveedor: { fontSize: 15, fontWeight: "700", color: colores.texto, marginBottom: espacio.xs },
-    pie: { fontSize: 12, color: colores.suave, marginTop: espacio.l, textAlign: "center" },
+    pie: { fontSize: 14, color: colores.suave, marginTop: espacio.l, textAlign: "center" },
 });

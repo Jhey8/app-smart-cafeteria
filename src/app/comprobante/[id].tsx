@@ -106,7 +106,7 @@ const estilos = StyleSheet.create({
     contenido: { padding: espacio.l, gap: espacio.l },
     papel: { backgroundColor: colores.superficie, borderRadius: radio.grande, padding: espacio.xl, gap: espacio.l, ...sombra },
     caja: { borderWidth: 1, borderColor: colores.texto, borderRadius: radio.chico, paddingVertical: espacio.s, alignItems: "center" },
-    tipo: { fontSize: 13, fontWeight: "700", textTransform: "uppercase", color: colores.texto, textAlign: "center" },
+    tipo: { fontSize: 14, fontWeight: "700", textTransform: "uppercase", color: colores.texto, textAlign: "center" },
     numero: { fontSize: 20, fontWeight: "800", color: colores.texto, fontVariant: ["tabular-nums"] },
     lineas: { borderTopWidth: 1, borderBottomWidth: 1, borderStyle: "dashed", borderColor: colores.borde, paddingVertical: espacio.s, gap: espacio.s },
     linea: { flexDirection: "row", justifyContent: "space-between", gap: espacio.m },

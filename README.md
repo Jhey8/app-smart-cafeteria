@@ -79,7 +79,7 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 | # | Criterio | WCAG | Estado |
 | --- | --- | --- | --- |
 | 1 | Texto alternativo en todas las imágenes | 1.1.1 | Pendiente |
-| 2 | Contraste de texto de 4.5:1 como mínimo | 1.4.3 | Parcial: el texto de ejemplo de los campos ya usa `suave` (#4c5462, 7.6:1). Falta revisar el resto con axe |
+| 2 | Contraste de texto de 4.5:1 como mínimo | 1.4.3 | Parcial: el texto de ejemplo de los campos usa `suave` (7.6:1); el error sobre azul pasó de ámbar (2.9:1) a blanco (5.9:1); el enlace legal de Entrar, de 4.0:1 a 5.1:1. Falta revisar el resto con axe |
 | 3 | Navegación completa con Tab y Enter | 2.1.1 | Pendiente de revisar. El pago ya es con botones, sin deslizar |
 | 4 | Foco visible con `:focus` en CSS | 2.4.7 | Hecho: contorno azul de 3 px con `:focus-visible` en `src/utils/accesibilidadWeb.ts`. Falta probarlo pantalla por pantalla |
 | 5 | `aria-label` en íconos sin texto | 4.1.2 | Parcial: ya hay unas 40 etiquetas de accesibilidad, falta revisar todas |
@@ -88,7 +88,7 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 | 8 | Formularios con etiquetas visibles y `autocomplete` | 1.3.5 | Hecho: `Campo` (en `Controles.tsx`) une la etiqueta visible con `aria-labelledby`, y cada campo personal tiene su `autocomplete`. Comprobado en Entrar, Registro y Recuperar. El buscador del Menú usa `aria-label`, sin etiqueta visible |
 | 9 | Enlace «Ir al contenido principal» | 2.4.1 | Hecho: `SaltarAlContenido.web.tsx` es el primer elemento de la página y lleva el foco a `#contenido`. Comprobado en Entrar y Registro |
 | 10 | Estructura semántica: `h1`, `nav`, `main`, `footer` | 1.3.1 | Hecho: `main` en la pantalla visible (`ContenidoPrincipal.tsx`, desde la navegación), `nav` en la barra inferior y `h1` en cada pantalla. Sin `footer`: la app no tiene pie de página. Probar con sesión iniciada |
-| 11 | Letra de 14 px como mínimo en el cuerpo | Diseño universal | Pendiente de revisar |
+| 11 | Letra de 14 px como mínimo en el cuerpo | Diseño universal | Hecho: los 10 textos que medían 12 o 13 px ahora miden 14. Solo quedan los números de los contadores (la campana y el carrito), que no son cuerpo de texto |
 
 **Problemas ya encontrados en la primera revisión del navegador:**
 - La página decía `lang="en"`. Ya está corregido a `lang="es"` en `src/utils/accesibilidadWeb.ts` (WCAG 3.1.1).
@@ -102,10 +102,10 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 ### Lo que el PA2 dejó para el PA3
 
 - **Pantalla «Pago rechazado»:** hecha en `PagoConMercadoPago.tsx` (`PagoRechazado`), según la pantalla 12 del Figma. No tiene «Pagar en caja con tu código», porque el backend no tiene ese flujo.
-- **Contrastes de objetos gráficos:** el tramo gris de la barra de progreso (1.3:1) y el círculo ámbar de «En preparación» (1.8:1) deben llegar a 3:1.
-- **Acompañamiento:** marcarlo como «(opcional)» y dejar quitarlo.
-- **Avatar de Inicio:** que lleve al Perfil.
-- **«Cambiar método»:** que lleve a algún sitio.
+- **Contrastes de objetos gráficos:** hecho en `LineaDeAvance.tsx`. Lo pendiente usa `bordeFuerte` (3.6:1) y «en curso», ámbar oscuro (5.8:1); antes daban 1.5:1 y 1.9:1.
+- **Acompañamiento:** hecho. En la app no es obligatorio; es una sugerencia del carrito, que ahora dice «(opcional)».
+- **Avatar de Inicio:** no aplica. La app no tiene avatar en Inicio; el perfil está en la pestaña «Tú».
+- **«Cambiar método»:** no aplica. La app muestra directamente los medios de pago.
 - **Inicio:** el saludo se lleva más atención que el botón «Pedir esto».
 - **Seguimiento:** es la pantalla más cargada, y el aviso de que ya no se puede cancelar casi no se ve.
 

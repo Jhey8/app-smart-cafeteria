@@ -83,5 +83,5 @@ const estilos = StyleSheet.create({
     },
     pestana: { flex: 1, height: "100%", alignItems: "center", justifyContent: "center", gap: 2, borderRadius: 999 },
     activa: { backgroundColor: colores.acentoClaro },
-    etiqueta: { fontSize: 12, fontWeight: "500" },
+    etiqueta: { fontSize: 14, fontWeight: "500" },
 });

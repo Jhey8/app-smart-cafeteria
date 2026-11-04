@@ -46,7 +46,7 @@ export function CuentaRegresiva({ listoEstimadoEn }: { listoEstimadoEn: string }
             <Icono nombre="reloj" color={colores.acento} tamano={22} />
             <View>
                 <Text style={estilos.principal}>{minutos > 1 ? `Faltan ${minutos} min` : minutos === 1 ? "Falta 1 min" : "Ya casi está"}</Text>
-                <Text style={[texto.nota, { fontSize: 13 }]}>Listo aprox. a las {hora(listoEstimadoEn)}</Text>
+                <Text style={texto.nota}>Listo aprox. a las {hora(listoEstimadoEn)}</Text>
             </View>
         </View>
     );

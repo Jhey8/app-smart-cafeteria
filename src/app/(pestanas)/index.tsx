@@ -439,7 +439,7 @@ const estilos = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
     },
-    textoDelSello: { color: colores.acentoProfundo, fontSize: 12, fontWeight: "800", letterSpacing: 0.5 },
+    textoDelSello: { color: colores.acentoProfundo, fontSize: 14, fontWeight: "800", letterSpacing: 0.5 },
     nombreDelPlato: { fontSize: 26, fontWeight: "800", color: colores.superficie, lineHeight: 31 },
     precio: { fontSize: 24, fontWeight: "800", color: colores.superficie },
     tiempo: { flexDirection: "row", alignItems: "center", gap: 6 },

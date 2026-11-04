@@ -248,10 +248,10 @@ const estilos = StyleSheet.create({
     tituloDeSeccion: { fontSize: 22, fontWeight: "800", color: colores.texto, paddingHorizontal: espacio.xl, marginBottom: espacio.xs },
     fila: { flexDirection: "row", alignItems: "center", gap: espacio.l, paddingHorizontal: espacio.xl, paddingVertical: 17 },
     textoDeFila: { fontSize: 17, color: colores.texto },
-    ayuda: { fontSize: 13, color: colores.suave, marginTop: 1 },
+    ayuda: { fontSize: 14, color: colores.suave, marginTop: 1 },
     contador: { minWidth: 22, height: 22, borderRadius: 11, backgroundColor: colores.calido, alignItems: "center", justifyContent: "center", paddingHorizontal: 6 },
     textoDelContador: { fontSize: 12, fontWeight: "800", color: colores.acentoProfundo },
     eliminar: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: espacio.xl, paddingVertical: 17, marginTop: espacio.m },
     textoEliminar: { fontSize: 16, color: colores.error },
-    version: { fontSize: 12, color: colores.suave, textAlign: "center", marginTop: espacio.xl, lineHeight: 18 },
+    version: { fontSize: 14, color: colores.suave, textAlign: "center", marginTop: espacio.xl, lineHeight: 18 },
 });

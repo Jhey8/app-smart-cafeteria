@@ -157,7 +157,8 @@ function Sugerencias({ ids, alAgregar }: { ids: number[]; alAgregar: (producto: 
 
     return (
         <View style={{ gap: espacio.s }}>
-            <Text style={texto.fuerte}>¿Lo acompañas con…?</Text>
+            {/* «Opcional» lo pidió un usuario en la prueba del PA2: dudó si estaba obligado a elegir. */}
+            <Text style={texto.fuerte}>¿Lo acompañas con…? (opcional)</Text>
             <FlatList
                 horizontal
                 data={disponibles}

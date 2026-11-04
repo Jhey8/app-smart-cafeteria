@@ -50,8 +50,9 @@ export function LineaDeAvance({ pedido }: { pedido: EstadoDelPedido }) {
                 const hecho = indice < actual;
                 const esElActual = indice === actual;
                 // Cada paso dibuja la mitad del tramo que lo une con el anterior y la mitad del que va al siguiente.
-                const tramoAnterior = indice === 0 ? "transparent" : indice <= actual ? colores.acento : colores.borde;
-                const tramoSiguiente = indice === pasos.length - 1 ? "transparent" : hecho ? colores.acento : colores.borde;
+                // Lo pendiente en bordeFuerte: el gris claro de antes daba 1.5:1 y el tramo casi no se veía (WCAG 1.4.11).
+                const tramoAnterior = indice === 0 ? "transparent" : indice <= actual ? colores.acento : colores.bordeFuerte;
+                const tramoSiguiente = indice === pasos.length - 1 ? "transparent" : hecho ? colores.acento : colores.bordeFuerte;
                 return (
                     <View key={paso.titulo} style={estilos.paso}>
                         <View style={estilos.carril}>
@@ -104,12 +105,13 @@ function Marca({ hecho, enCurso }: { hecho: boolean; enCurso: boolean }) {
     }
     if (enCurso) {
         return (
-            <View style={[estilos.marca, { backgroundColor: colores.calidoClaro }]}>
+            // Borde y punto en ámbar oscuro (5.8:1): el ámbar claro de antes daba 1.9:1 sobre su fondo.
+            <View style={[estilos.marca, { backgroundColor: colores.calidoClaro, borderWidth: 2, borderColor: colores.calidoOscuro }]}>
                 <Animated.View style={[estilos.nucleo, { transform: [{ scale: latido }] }]} />
             </View>
         );
     }
-    return <View style={[estilos.marca, { backgroundColor: colores.fondo, borderWidth: 2, borderColor: colores.borde }]} />;
+    return <View style={[estilos.marca, { backgroundColor: colores.fondo, borderWidth: 2, borderColor: colores.bordeFuerte }]} />;
 }
 
 const estilos = StyleSheet.create({
@@ -125,7 +127,8 @@ const estilos = StyleSheet.create({
     carril: { flexDirection: "row", alignItems: "center", alignSelf: "stretch", marginBottom: espacio.xs },
     tramo: { flex: 1, height: 3, borderRadius: 2, marginHorizontal: 3 },
     marca: { width: 26, height: 26, borderRadius: 13, alignItems: "center", justifyContent: "center" },
-    nucleo: { width: 10, height: 10, borderRadius: 5, backgroundColor: colores.calido },
+    nucleo: { width: 10, height: 10, borderRadius: 5, backgroundColor: colores.calidoOscuro },
     titulo: { fontSize: 14, fontWeight: "700", color: colores.texto, textAlign: "center", paddingHorizontal: 2 },
-    detalle: { fontSize: 12, lineHeight: 16, color: colores.suave, textAlign: "center", paddingHorizontal: 2 },
+    // 14 px como mínimo en el texto (criterio 11 del curso, diseño universal).
+    detalle: { fontSize: 14, lineHeight: 18, color: colores.suave, textAlign: "center", paddingHorizontal: 2 },
 });

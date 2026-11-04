@@ -21,6 +21,8 @@ export const colores = {
     texto: "#14171f",
     suave: "#4c5462",
     borde: "#cfd5de",
+    /** Para bordes y trazos que comunican un estado: 3.6:1 sobre blanco y 3.2:1 sobre el fondo (WCAG 1.4.11 pide 3:1). */
+    bordeFuerte: "#7d8796",
     error: "#b42318",
     errorClaro: "#fdecea",
     ok: "#1a7f37",
