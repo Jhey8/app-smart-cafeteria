@@ -93,7 +93,8 @@ const estilos = StyleSheet.create({
     titulo: { fontSize: 26, fontWeight: "800", color: colores.superficie, textAlign: "center" },
     pie: { flexDirection: "row", justifyContent: "center", gap: espacio.xs },
     textoDelPie: { fontSize: 15, color: "rgba(255, 255, 255, 0.85)" },
-    enlace: { fontSize: 15, fontWeight: "800", color: colores.calido },
+    // Blanco y subrayado (5.9:1): el ámbar sobre azul no llegaba a 4.5:1 (WCAG 1.4.3).
+    enlace: { fontSize: 15, fontWeight: "800", color: colores.superficie, textDecorationLine: "underline" },
     olvide: { fontSize: 15, fontWeight: "700", color: colores.superficie, textAlign: "center" },
     legal: { fontSize: 14, color: "rgba(255, 255, 255, 0.9)", textAlign: "center", textDecorationLine: "underline" },
 });

@@ -83,7 +83,7 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 | 3 | Navegación completa con Tab y Enter | 2.1.1 | Pendiente de revisar. El pago ya es con botones, sin deslizar |
 | 4 | Foco visible con `:focus` en CSS | 2.4.7 | Hecho: contorno azul de 3 px con `:focus-visible` en `src/utils/accesibilidadWeb.ts`. Falta probarlo pantalla por pantalla |
 | 5 | `aria-label` en íconos sin texto | 4.1.2 | Parcial: ya hay unas 40 etiquetas de accesibilidad, falta revisar todas |
-| 6 | Botones y áreas táctiles de 44 × 44 px como mínimo | 2.5.5 | Pendiente de revisar |
+| 6 | Botones y áreas táctiles de 44 × 44 px como mínimo | 2.5.5 | Parcial: el «+» de los platos, el corazón de favoritos y la casilla de términos ya miden 44 × 44. Falta medir el resto con DevTools |
 | 7 | Errores explicados con texto, no solo con color | 1.4.1 | Hecho: cada error sale en texto (`Aviso`, con `role="alert"`), el campo marca `aria-invalid` y su ayuda se une con `aria-describedby`. La pantalla «Pago rechazado» dice «Qué pasó» con palabras y el monto. Falta verla con un rechazo real |
 | 8 | Formularios con etiquetas visibles y `autocomplete` | 1.3.5 | Hecho: `Campo` (en `Controles.tsx`) une la etiqueta visible con `aria-labelledby`, y cada campo personal tiene su `autocomplete`. Comprobado en Entrar, Registro y Recuperar. El buscador del Menú usa `aria-label`, sin etiqueta visible |
 | 9 | Enlace «Ir al contenido principal» | 2.4.1 | Hecho: `SaltarAlContenido.web.tsx` es el primer elemento de la página y lleva el foco a `#contenido`. Comprobado en Entrar y Registro |
@@ -98,6 +98,24 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 - Los campos de inicio de sesión no tienen `<label>` asociado ni `autocomplete`.
 - El texto de ejemplo de los campos es gris claro y tiene poco contraste.
 - A 390 px de ancho, la tarjeta de inicio de sesión se corta por la derecha.
+
+### Revisión con axe en las pantallas públicas
+
+axe 4.10 (WCAG 2.1 A y AA más buenas prácticas), en Chrome a 390 × 844, sin iniciar sesión:
+
+| Pantalla | Antes | Corrección | Después |
+| --- | --- | --- | --- |
+| Entrar | `color-contrast`: «Crea tu cuenta» en ámbar sobre azul | Enlace blanco, en negrita y subrayado (5.9:1) | 0 |
+| Registro | `aria-required-attr` y `aria-toggle-field-name`: la casilla de términos no decía su estado ni su nombre | `Casilla.tsx` con `aria-checked`, `aria-labelledby` y área de 44 × 44 | 0 |
+| Registro | `color-contrast`: «Términos de uso» y «Política de privacidad» en ámbar sobre azul. Además eran texto con `onPress`, sin foco con Tab | Enlaces `<Link>` reales, blancos y subrayados | 0 |
+| Recuperar | Sin errores | — | 0 |
+| Información legal | `aria-required-parent`: pestañas sin lista de pestañas | `role="tablist"` en el contenedor | 1 |
+
+**No corregido, a propósito:** `region` (moderado, buena práctica y no requisito WCAG). La barra superior con el título la dibuja la navegación de Expo fuera del `main`, y aparece en todas las pantallas con barra superior. Corregirlo obligaría a reemplazar esa barra entera.
+
+**Teclado:** en las cuatro pantallas, el primer Tab llega a «Ir al contenido principal», que se ve y tiene contorno.
+
+Las pantallas con sesión (Inicio, Menú, Pedido y pago, Seguimiento) las revisa el equipo con la extensión axe DevTools o WAVE. El reporte del informe tiene que salir de ahí, sobre la app real.
 
 ### Lo que el PA2 dejó para el PA3
 

@@ -19,7 +19,8 @@ export default function InformacionLegal() {
 
     return (
         <ScrollView style={{ backgroundColor: colores.superficie }} contentContainerStyle={estilos.contenido}>
-            <View style={estilos.selector}>
+            {/* Las pestañas van dentro de una lista de pestañas, como exige ARIA (axe: aria-required-parent). */}
+            <View role="tablist" style={estilos.selector}>
                 {(["terminos", "privacidad"] as const).map((opcion) => (
                     <Pressable
                         key={opcion}

@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
 import { PantallaDeAcceso } from "@/componentes/CabeceraDeAcceso";
@@ -132,13 +132,14 @@ export default function Registro() {
                     <Casilla sobreAzul marcada={aceptaTerminos} alCambiar={setAceptaTerminos} conError={error?.campo === "aceptaTerminos"}>
                         <Text style={estilos.nota}>
                             Acepto los{" "}
-                            <Text style={estilos.enlace} onPress={() => router.push("/legal")}>
+                            {/* Enlaces de verdad (<a>): así se llega a ellos con Tab (WCAG 2.1.1). */}
+                            <Link href="/legal" style={estilos.enlace}>
                                 Términos de uso
-                            </Text>{" "}
+                            </Link>{" "}
                             y la{" "}
-                            <Text style={estilos.enlace} onPress={() => router.push("/legal")}>
+                            <Link href="/legal" style={estilos.enlace}>
                                 Política de privacidad
-                            </Text>
+                            </Link>
                             , y el tratamiento de mis datos según la Ley 29733.
                         </Text>
                     </Casilla>
@@ -156,5 +157,6 @@ const estilos = StyleSheet.create({
     titulo: { fontSize: 26, fontWeight: "800", color: colores.superficie, textAlign: "center" },
     nota: { fontSize: 14, lineHeight: 20, color: "rgba(255, 255, 255, 0.85)", textAlign: "center" },
     fila: { flexDirection: "row", gap: espacio.m },
-    enlace: { color: colores.calido, fontWeight: "700" },
+    // Blanco y subrayado (5.9:1): el ámbar sobre azul no llegaba a 4.5:1 (WCAG 1.4.3).
+    enlace: { color: colores.superficie, fontWeight: "700", textDecorationLine: "underline" },
 });
