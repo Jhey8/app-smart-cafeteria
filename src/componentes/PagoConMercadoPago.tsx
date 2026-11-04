@@ -2,7 +2,7 @@ import * as Haptics from "expo-haptics";
 import { router } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, AppState, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, AppState, Pressable, StyleSheet, Text, View } from "react-native";
 import { mensajeDe } from "@/servicios/api";
 import { iniciarPago, verificarPago, type PagoIniciado } from "@/servicios/pagos";
 import { colores, espacio, radio, sombra, texto } from "@/tema";
@@ -119,12 +119,7 @@ export function PagoConMercadoPago({ idPedido, monto }: { idPedido: number; mont
     }
 
     if (estado.tipo === "rechazado") {
-        return (
-            <View style={{ gap: espacio.l }}>
-                <Resultado icono="cerrar" color={colores.error} titulo="El pago no se aprobó" detalle={estado.mensaje} />
-                <Boton onPress={() => void empezar()}>Intentar otra vez</Boton>
-            </View>
-        );
+        return <PagoRechazado monto={monto} motivo={estado.mensaje} alReintentar={() => void empezar()} />;
     }
 
     if (estado.tipo === "esperando") {
@@ -179,6 +174,69 @@ function Punto({ icono, texto: contenido }: { icono: NombreDeIcono; texto: strin
     );
 }
 
+/**
+ * Pantalla 12 del Figma, «Pago rechazado». Primero tranquiliza (no se cobró
+ * nada), después dice qué pasó con el monto y por último da salidas concretas.
+ *
+ * Accesibilidad: todo se anuncia como alerta apenas aparece, y el error se dice
+ * con palabras («Qué pasó»), no solo con el color rojo (WCAG 1.4.1 y 3.3.1).
+ */
+function PagoRechazado({ monto, motivo, alReintentar }: { monto: number; motivo: string; alReintentar: () => void }) {
+    return (
+        <View style={{ gap: espacio.l }} role="alert">
+            <View style={{ alignItems: "center", gap: espacio.m }}>
+                <View style={estilos.circuloDeError}>
+                    <Icono nombre="alerta" color={colores.error} tamano={36} />
+                </View>
+                <Text role="heading" aria-level={2} style={[texto.subtitulo, { textAlign: "center" }]}>
+                    No pudimos cobrar tu pedido
+                </Text>
+            </View>
+
+            <View style={[estilos.recuadro, { backgroundColor: colores.okClaro }]}>
+                <Icono nombre="listo" color={colores.ok} tamano={22} />
+                <Text style={[texto.fuerte, { flex: 1 }]}>Tu pedido no se envió a cocina y no se te cobró nada.</Text>
+            </View>
+
+            <View style={[estilos.recuadro, { backgroundColor: colores.errorClaro, flexDirection: "column", alignItems: "stretch" }]}>
+                <Text style={estilos.rotuloDeError}>QUÉ PASÓ</Text>
+                <Text style={texto.cuerpo}>{`Se rechazó el pago de ${soles(monto)}. ${motivo}`}</Text>
+            </View>
+
+            <Text style={estilos.rotulo}>QUÉ PUEDES HACER</Text>
+            <Salida
+                icono="repetir"
+                titulo="Intentar otra vez"
+                detalle="En Mercado Pago puedes usar otra tarjeta o tu cuenta. Tu pedido se conserva."
+                alPulsar={alReintentar}
+            />
+            <Boton variante="secundario" onPress={() => router.back()}>
+                Volver a mi pedido
+            </Boton>
+        </View>
+    );
+}
+
+function Salida({ icono, titulo, detalle, alPulsar }: { icono: NombreDeIcono; titulo: string; detalle: string; alPulsar: () => void }) {
+    return (
+        <Pressable
+            onPress={alPulsar}
+            accessibilityRole="button"
+            accessibilityLabel={`${titulo}. ${detalle}`}
+            style={({ pressed }) => [estilos.salida, pressed && { opacity: 0.85 }]}
+        >
+            <View style={estilos.iconoDeSalida}>
+                <Icono nombre={icono} color={colores.acento} tamano={22} />
+            </View>
+            <View style={{ flex: 1, gap: 2 }}>
+                <Text style={texto.fuerte}>{titulo}</Text>
+                <Text style={texto.nota}>{detalle}</Text>
+            </View>
+            <Icono nombre="siguiente" color={colores.suave} tamano={20} />
+        </Pressable>
+    );
+}
+
 function Resultado({ icono, color, titulo, detalle }: { icono: NombreDeIcono; color: string; titulo: string; detalle: string }) {
     return (
         <View style={[estilos.tarjeta, { alignItems: "center" }]} accessibilityLiveRegion="polite">
@@ -194,4 +252,11 @@ const estilos = StyleSheet.create({
     marca: { flexDirection: "row", alignItems: "center", gap: espacio.m, paddingBottom: espacio.s },
     circulo: { width: 52, height: 52, borderRadius: 26, backgroundColor: colores.acentoClaro, alignItems: "center", justifyContent: "center" },
     punto: { flexDirection: "row", alignItems: "flex-start", gap: espacio.m },
+    circuloDeError: { width: 72, height: 72, borderRadius: 36, backgroundColor: colores.errorClaro, alignItems: "center", justifyContent: "center" },
+    recuadro: { flexDirection: "row", alignItems: "center", gap: espacio.m, borderRadius: radio.grande, padding: espacio.l },
+    rotuloDeError: { fontSize: 14, fontWeight: "700", color: colores.error },
+    rotulo: { fontSize: 14, fontWeight: "600", color: colores.suave },
+    // 68 px de alto, como en el Figma: muy por encima de los 44 × 44 mínimos (WCAG 2.5.5).
+    salida: { flexDirection: "row", alignItems: "center", gap: espacio.m, minHeight: 68, backgroundColor: colores.superficie, borderRadius: radio.grande, padding: espacio.m, ...sombra },
+    iconoDeSalida: { width: 44, height: 44, borderRadius: radio.medio, backgroundColor: colores.acentoClaro, alignItems: "center", justifyContent: "center" },
 });

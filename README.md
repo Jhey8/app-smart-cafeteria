@@ -67,7 +67,7 @@ El pago usa Mercado Pago, como en la app real. En el navegador se abre en otra p
 
 1. **Probar con sesión iniciada** el enlace para saltar, el `main`, el `nav` y los `h1` de Inicio, Menú, Pedidos y Perfil.
 2. **Títulos de sección como `h2`:** «Hoy en el menú» y los demás subtítulos, con `role="heading"` y `aria-level={2}`.
-3. **Pantalla «Pago rechazado»** según el Figma, y después los demás pendientes del PA2.
+3. **Los demás pendientes del PA2** (lista de arriba).
 4. **Pasar axe en Inicio, Pedido y pago, y Seguimiento,** guardando capturas del antes y el después.
 
 ## Estado del PA3
@@ -84,7 +84,7 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 | 4 | Foco visible con `:focus` en CSS | 2.4.7 | Hecho: contorno azul de 3 px con `:focus-visible` en `src/utils/accesibilidadWeb.ts`. Falta probarlo pantalla por pantalla |
 | 5 | `aria-label` en íconos sin texto | 4.1.2 | Parcial: ya hay unas 40 etiquetas de accesibilidad, falta revisar todas |
 | 6 | Botones y áreas táctiles de 44 × 44 px como mínimo | 2.5.5 | Pendiente de revisar |
-| 7 | Errores explicados con texto, no solo con color | 1.4.1 | Parcial: cada error sale en texto (`Aviso`, con `role="alert"`), el campo marca `aria-invalid` y su ayuda se une con `aria-describedby`. Falta la pantalla «Pago rechazado» |
+| 7 | Errores explicados con texto, no solo con color | 1.4.1 | Hecho: cada error sale en texto (`Aviso`, con `role="alert"`), el campo marca `aria-invalid` y su ayuda se une con `aria-describedby`. La pantalla «Pago rechazado» dice «Qué pasó» con palabras y el monto. Falta verla con un rechazo real |
 | 8 | Formularios con etiquetas visibles y `autocomplete` | 1.3.5 | Hecho: `Campo` (en `Controles.tsx`) une la etiqueta visible con `aria-labelledby`, y cada campo personal tiene su `autocomplete`. Comprobado en Entrar, Registro y Recuperar. El buscador del Menú usa `aria-label`, sin etiqueta visible |
 | 9 | Enlace «Ir al contenido principal» | 2.4.1 | Hecho: `SaltarAlContenido.web.tsx` es el primer elemento de la página y lleva el foco a `#contenido`. Comprobado en Entrar y Registro |
 | 10 | Estructura semántica: `h1`, `nav`, `main`, `footer` | 1.3.1 | Hecho: `main` en la pantalla visible (`ContenidoPrincipal.tsx`, desde la navegación), `nav` en la barra inferior y `h1` en cada pantalla. Sin `footer`: la app no tiene pie de página. Probar con sesión iniciada |
@@ -101,7 +101,7 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 
 ### Lo que el PA2 dejó para el PA3
 
-- **Pantalla «Pago rechazado»:** está en el Figma (pantalla 12) y no existe en la app.
+- **Pantalla «Pago rechazado»:** hecha en `PagoConMercadoPago.tsx` (`PagoRechazado`), según la pantalla 12 del Figma. No tiene «Pagar en caja con tu código», porque el backend no tiene ese flujo.
 - **Contrastes de objetos gráficos:** el tramo gris de la barra de progreso (1.3:1) y el círculo ámbar de «En preparación» (1.8:1) deben llegar a 3:1.
 - **Acompañamiento:** marcarlo como «(opcional)» y dejar quitarlo.
 - **Avatar de Inicio:** que lleve al Perfil.

@@ -41,6 +41,7 @@ const ICONOS = {
     corazon: { ios: "heart", android: "favorite_border" },
     corazonLleno: { ios: "heart.fill", android: "favorite" },
     legal: { ios: "info.circle", android: "info" },
+    alerta: { ios: "exclamationmark.triangle", android: "warning" },
     dispositivos: { ios: "iphone.and.arrow.forward", android: "devices" },
     telefono: { ios: "phone", android: "call" },
     express: { ios: "bolt.fill", android: "bolt" },
