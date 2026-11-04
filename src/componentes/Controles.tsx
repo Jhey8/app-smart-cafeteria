@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useId, useState, type ReactNode } from "react";
 import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View, type TextInputProps } from "react-native";
 import { colores, espacio, radio, texto } from "@/tema";
 import { Icono, type NombreDeIcono } from "./Icono";
@@ -63,12 +63,23 @@ interface PropsDeCampo extends Omit<TextInputProps, "style"> {
 
 export function Campo({ etiqueta, ayuda, conError = false, altoMinimo, redondo = false, sobreAzul = false, ...resto }: PropsDeCampo) {
     const [enfocado, setEnfocado] = useState(false);
+    // Ids para unir, en la web, la etiqueta y la ayuda con su campo.
+    const id = useId();
+    const idEtiqueta = `${id}-etiqueta`;
+    const idAyuda = `${id}-ayuda`;
     return (
         <View style={{ gap: espacio.xs }}>
-            <Text style={[estilos.etiqueta, sobreAzul && { color: colores.superficie }]}>{etiqueta}</Text>
+            <Text id={idEtiqueta} style={[estilos.etiqueta, sobreAzul && { color: colores.superficie }]}>
+                {etiqueta}
+            </Text>
             <TextInput
                 {...resto}
                 accessibilityLabel={etiqueta}
+                // WCAG 1.3.1: el campo se nombra con la etiqueta visible que tiene encima.
+                aria-labelledby={idEtiqueta}
+                // WCAG 3.3.1: el texto de ayuda o de error se lee junto al campo, y el error no queda solo en el color del borde.
+                aria-describedby={ayuda ? idAyuda : undefined}
+                aria-invalid={conError}
                 placeholderTextColor={colores.suave}
                 onFocus={(evento) => {
                     setEnfocado(true);
@@ -87,7 +98,19 @@ export function Campo({ etiqueta, ayuda, conError = false, altoMinimo, redondo =
                     conError && { borderColor: sobreAzul ? colores.calido : colores.error },
                 ]}
             />
-            {ayuda && <Text style={[texto.nota, sobreAzul && { color: "rgba(255, 255, 255, 0.85)" }, conError && { color: sobreAzul ? colores.calido : colores.error }]}>{ayuda}</Text>}
+            {ayuda && (
+                <Text
+                    id={idAyuda}
+                    style={[
+                        texto.nota,
+                        sobreAzul && { color: "rgba(255, 255, 255, 0.85)" },
+                        // Sobre azul el error va en blanco y negrita: el ámbar daba 2.9:1 y no llegaba a 4.5:1 (WCAG 1.4.3).
+                        conError && (sobreAzul ? estilos.errorSobreAzul : { color: colores.error }),
+                    ]}
+                >
+                    {ayuda}
+                </Text>
+            )}
         </View>
     );
 }
@@ -128,6 +151,7 @@ const estilos = StyleSheet.create({
     },
     textoDeBoton: { fontSize: 17, fontWeight: "600" },
     etiqueta: { fontSize: 14, fontWeight: "600", color: colores.texto },
+    errorSobreAzul: { color: colores.superficie, fontWeight: "700" },
     campo: {
         minHeight: 50,
         borderWidth: 1.5,

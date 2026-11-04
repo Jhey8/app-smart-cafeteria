@@ -168,7 +168,7 @@ export default function NuevaReclamacion() {
                 </Seccion>
 
                 <Seccion titulo="4. Tus datos">
-                    <Campo etiqueta="Nombre completo" value={valores.nombres} onChangeText={cambiar("nombres")} conError={conError("nombres")} />
+                    <Campo etiqueta="Nombre completo" value={valores.nombres} onChangeText={cambiar("nombres")} autoComplete="name" conError={conError("nombres")} />
                     <Segmentado
                         opciones={[
                             { valor: "DNI", texto: "DNI" },
@@ -192,10 +192,25 @@ export default function NuevaReclamacion() {
                         onChangeText={cambiar("correo")}
                         keyboardType="email-address"
                         autoCapitalize="none"
+                        autoComplete="email"
                         conError={conError("correo")}
                     />
-                    <Campo etiqueta="Celular (opcional)" value={valores.telefono} onChangeText={cambiar("telefono")} keyboardType="phone-pad" conError={conError("telefono")} />
-                    <Campo etiqueta="Domicilio" value={valores.domicilio} onChangeText={cambiar("domicilio")} placeholder="Av. Bolognesi 123, Chiclayo" conError={conError("domicilio")} />
+                    <Campo
+                        etiqueta="Celular (opcional)"
+                        value={valores.telefono}
+                        onChangeText={cambiar("telefono")}
+                        keyboardType="phone-pad"
+                        autoComplete="tel"
+                        conError={conError("telefono")}
+                    />
+                    <Campo
+                        etiqueta="Domicilio"
+                        value={valores.domicilio}
+                        onChangeText={cambiar("domicilio")}
+                        placeholder="Av. Bolognesi 123, Chiclayo"
+                        autoComplete="street-address"
+                        conError={conError("domicilio")}
+                    />
                     <View style={estilos.fila}>
                         <Text style={[texto.cuerpo, { flex: 1 }]}>Soy menor de edad</Text>
                         <Switch value={menor} onValueChange={setMenor} trackColor={{ true: colores.acento, false: colores.borde }} />

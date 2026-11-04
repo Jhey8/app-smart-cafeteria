@@ -67,6 +67,7 @@ export default function Registro() {
                         placeholder="U1533148"
                         autoCapitalize="characters"
                         autoCorrect={false}
+                        autoComplete="username"
                         conError={conError("identificador")}
                     />
                     <View style={estilos.fila}>
