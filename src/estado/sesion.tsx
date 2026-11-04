@@ -1,4 +1,4 @@
-import * as SecureStore from "expo-secure-store";
+import * as almacen from "@/utils/almacen";
 import { olvidarComprobante } from "@/utils/comprobante";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { z } from "zod";
@@ -9,7 +9,7 @@ import type { RespuestaDeSesion } from "@/tipos/api";
 /*
  * La sesión del estudiante. Se guarda en SecureStore (el llavero del
  * teléfono, cifrado), no en un almacenamiento plano: el token permite pedir
- * a su nombre.
+ * a su nombre. En el navegador va en sessionStorage (ver utils/almacen).
  */
 const CLAVE = "sesion";
 
@@ -41,7 +41,7 @@ export function ProveedorDeSesion({ children }: { children: ReactNode }) {
         await desactivarPush();
         usarToken(null);
         setSesion(null);
-        await SecureStore.deleteItemAsync(CLAVE).catch(() => {});
+        await almacen.deleteItemAsync(CLAVE).catch(() => {});
         // El RUC o el DNI de la última boleta son de esta persona, no de quien entre después.
         await olvidarComprobante();
     }, []);
@@ -50,12 +50,12 @@ export function ProveedorDeSesion({ children }: { children: ReactNode }) {
         const nueva: Sesion = { token, venceEn: Date.now() + expiraEnSegundos * 1000, codigo, nombres, apellidos, tipo };
         usarToken(token);
         setSesion(nueva);
-        await SecureStore.setItemAsync(CLAVE, JSON.stringify(nueva));
+        await almacen.setItemAsync(CLAVE, JSON.stringify(nueva));
     }, []);
 
     useEffect(() => {
         alPerderLaSesion(() => void cerrar());
-        SecureStore.getItemAsync(CLAVE)
+        almacen.getItemAsync(CLAVE)
             .then((texto) => {
                 const guardada = texto === null ? null : esquemaGuardada.safeParse(JSON.parse(texto));
                 // Un token vencido no sirve: mejor pedir la contraseña ya que fallar en el primer pedido.

@@ -1,4 +1,4 @@
-import * as SecureStore from "expo-secure-store";
+import * as almacen from "@/utils/almacen";
 
 /** Lo que viaja al crear el pedido: boleta o factura, y a nombre de quién. */
 export interface DatosDelComprobante {
@@ -53,7 +53,7 @@ const CLAVE = "comprobante.preferido";
 
 export async function comprobantePreferido(): Promise<DatosDelComprobante | null> {
     try {
-        const guardado = await SecureStore.getItemAsync(CLAVE);
+        const guardado = await almacen.getItemAsync(CLAVE);
         if (guardado === null) {
             return null;
         }
@@ -66,12 +66,12 @@ export async function comprobantePreferido(): Promise<DatosDelComprobante | null
 
 export async function recordarComprobante(datos: DatosDelComprobante): Promise<void> {
     try {
-        await SecureStore.setItemAsync(CLAVE, JSON.stringify(datos));
+        await almacen.setItemAsync(CLAVE, JSON.stringify(datos));
     } catch {
         // Recordarlo es una comodidad: si falla, la próxima vez se vuelve a escribir.
     }
 }
 
 export async function olvidarComprobante(): Promise<void> {
-    await SecureStore.deleteItemAsync(CLAVE).catch(() => {});
+    await almacen.deleteItemAsync(CLAVE).catch(() => {});
 }

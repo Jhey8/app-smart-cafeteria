@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
-import * as SecureStore from "expo-secure-store";
+import * as almacen from "@/utils/almacen";
 import { Platform } from "react-native";
 import { colores } from "@/tema";
 import { olvidarTelefono, registrarTelefono } from "./cafeteria";
@@ -64,7 +64,7 @@ export async function activarPush(): Promise<void> {
             return;
         }
         await registrarTelefono(token, Platform.OS);
-        await SecureStore.setItemAsync(CLAVE_DEL_TOKEN, token);
+        await almacen.setItemAsync(CLAVE_DEL_TOKEN, token);
     } catch {
         // Un push que no se pudo activar no impide usar la app.
     }
@@ -73,9 +73,9 @@ export async function activarPush(): Promise<void> {
 /** Al salir, antes de soltar el token de la sesión: los avisos de esta cuenta dejan de llegar aquí. */
 export async function desactivarPush(): Promise<void> {
     try {
-        const token = await SecureStore.getItemAsync(CLAVE_DEL_TOKEN);
+        const token = await almacen.getItemAsync(CLAVE_DEL_TOKEN);
         if (token !== null) {
-            await SecureStore.deleteItemAsync(CLAVE_DEL_TOKEN);
+            await almacen.deleteItemAsync(CLAVE_DEL_TOKEN);
             await olvidarTelefono(token);
         }
     } catch {

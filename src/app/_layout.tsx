@@ -2,16 +2,19 @@ import * as Notifications from "expo-notifications";
 import { router, SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { Platform } from "react-native";
 import { ProveedorDeAvisos } from "@/estado/avisos";
 import { ProveedorDelCarrito } from "@/estado/carrito";
 import { ProveedorDeCuenta, useCuenta } from "@/estado/cuenta";
 import { ProveedorDeSesion, useSesion } from "@/estado/sesion";
 import { PuertaDeTerminos } from "@/componentes/PuertaDeTerminos";
 import { activarPush, destinoDelAviso } from "@/servicios/push";
+import { prepararAccesibilidadWeb } from "@/utils/accesibilidadWeb";
 import { colores } from "@/tema";
 
 // La pantalla de inicio se queda hasta saber si hay una sesión guardada: así no parpadea la entrada.
 void SplashScreen.preventAutoHideAsync();
+prepararAccesibilidadWeb();
 
 export default function Raiz() {
     return (
@@ -39,7 +42,8 @@ function Navegacion() {
     const hayAlguien = Boolean(sesion);
 
     useEffect(() => {
-        if (!hayAlguien) {
+        // En el navegador no hay push: la campana se pone al día al abrirla.
+        if (!hayAlguien || Platform.OS === "web") {
             return;
         }
         void activarPush();
