@@ -137,7 +137,7 @@ export default function Perfil() {
                         </View>
                     </View>
                     <View style={{ flex: 1 }}>
-                        <Text style={estilos.nombre} numberOfLines={2}>
+                        <Text role="heading" aria-level={1} style={estilos.nombre} numberOfLines={2}>
                             {nombres} {apellidos}
                         </Text>
                         <Text style={estilos.subtitulo}>

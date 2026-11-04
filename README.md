@@ -65,8 +65,8 @@ El pago usa Mercado Pago, como en la app real. En el navegador se abre en otra p
 
 ## Siguiente paso sugerido
 
-1. **Enlace «Ir al contenido principal»:** un texto con `href="#contenido"` como primer elemento de la página, oculto hasta recibir el foco (`dataSet` y CSS en `accesibilidadWeb.ts`), y `nativeID="contenido"` en el área principal de cada pantalla.
-2. **Estructura:** `role="main"` en el contenido de cada pantalla, `role="navigation"` en la barra inferior (`src/componentes/BarraDePestanas.tsx`) y `role="heading"` con `aria-level={1}` en el título de cada pantalla.
+1. **Probar con sesión iniciada** el enlace para saltar, el `main`, el `nav` y los `h1` de Inicio, Menú, Pedidos y Perfil.
+2. **Títulos de sección como `h2`:** «Hoy en el menú» y los demás subtítulos, con `role="heading"` y `aria-level={2}`.
 3. **Formularios** (`entrar`, `registro`, `recuperar`, `cuenta/*`): etiqueta asociada con `aria-labelledby` o `accessibilityLabel`, y `autoComplete` (`username`, `current-password`, `email`, `new-password`).
 4. **Pantalla «Pago rechazado»** según el Figma, y después los demás pendientes del PA2.
 5. **Pasar axe en Inicio, Pedido y pago, y Seguimiento,** guardando capturas del antes y el después.
@@ -87,13 +87,15 @@ El enunciado pide **al menos 8**; la meta es cumplir los 11. Por cada criterio, 
 | 6 | Botones y áreas táctiles de 44 × 44 px como mínimo | 2.5.5 | Pendiente de revisar |
 | 7 | Errores explicados con texto, no solo con color | 1.4.1 | Pendiente de revisar |
 | 8 | Formularios con etiquetas visibles y `autocomplete` | 1.3.5 | Pendiente |
-| 9 | Enlace «Ir al contenido principal» | 2.4.1 | Pendiente |
-| 10 | Estructura semántica: `h1`, `nav`, `main`, `footer` | 1.3.1 | Pendiente |
+| 9 | Enlace «Ir al contenido principal» | 2.4.1 | Hecho: `SaltarAlContenido.web.tsx` es el primer elemento de la página y lleva el foco a `#contenido`. Comprobado en Entrar y Registro |
+| 10 | Estructura semántica: `h1`, `nav`, `main`, `footer` | 1.3.1 | Hecho: `main` en la pantalla visible (`ContenidoPrincipal.tsx`, desde la navegación), `nav` en la barra inferior y `h1` en cada pantalla. Sin `footer`: la app no tiene pie de página. Probar con sesión iniciada |
 | 11 | Letra de 14 px como mínimo en el cuerpo | Diseño universal | Pendiente de revisar |
 
 **Problemas ya encontrados en la primera revisión del navegador:**
 - La página decía `lang="en"`. Ya está corregido a `lang="es"` en `src/utils/accesibilidadWeb.ts` (WCAG 3.1.1).
-- No hay `h1`, `main` ni `nav`. «Inicia sesión» es texto suelto, no un título.
+- No había `h1`, `main` ni `nav`. Ya están: ver los criterios 9 y 10.
+- Había botones dentro de otros botones en las tarjetas de Inicio y Menú. Ya están separados.
+- En la web no se veía ningún ícono. Ya se ven: `Icono.tsx` usa Material Symbols también en la web.
 - Los campos de inicio de sesión no tienen `<label>` asociado ni `autocomplete`.
 - El texto de ejemplo de los campos es gris claro y tiene poco contraste.
 - A 390 px de ancho, la tarjeta de inicio de sesión se corta por la derecha.

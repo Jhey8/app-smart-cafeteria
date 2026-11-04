@@ -270,7 +270,7 @@ function BarraSuperior({
 
             <View style={[estilos.saludo, { top: margenes.top }]}>
                 <View style={{ flex: 1 }}>
-                    <Text style={estilos.hola} numberOfLines={1}>
+                    <Text role="heading" aria-level={1} style={estilos.hola} numberOfLines={1}>
                         Hola, {nombre}
                     </Text>
                     <Text style={estilos.pregunta}>¿Qué pedirás hoy?</Text>

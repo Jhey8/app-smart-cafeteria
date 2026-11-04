@@ -26,8 +26,9 @@ export function useEspacioDeLaBarra(): number {
  */
 export function BarraDePestanas({ state, descriptors, navigation, insets }: PropsDeLaBarra) {
     return (
-        <View pointerEvents="box-none" style={[estilos.capa, { bottom: Math.max(insets.bottom, 12) }]}>
-            <View style={estilos.capsula}>
+        // WCAG 1.3.1: en la web la barra es un <nav>, y sus pestañas van dentro de una lista de pestañas.
+        <View role="navigation" aria-label="Secciones de la app" pointerEvents="box-none" style={[estilos.capa, { bottom: Math.max(insets.bottom, 12) }]}>
+            <View role="tablist" style={estilos.capsula}>
                 {state.routes.map((ruta, indice) => {
                     const descriptor = descriptors[ruta.key];
                     if (!descriptor) {

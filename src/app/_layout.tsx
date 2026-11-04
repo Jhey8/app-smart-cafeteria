@@ -7,7 +7,9 @@ import { ProveedorDeAvisos } from "@/estado/avisos";
 import { ProveedorDelCarrito } from "@/estado/carrito";
 import { ProveedorDeCuenta, useCuenta } from "@/estado/cuenta";
 import { ProveedorDeSesion, useSesion } from "@/estado/sesion";
+import { ContenidoPrincipal } from "@/componentes/ContenidoPrincipal";
 import { PuertaDeTerminos } from "@/componentes/PuertaDeTerminos";
+import { SaltarAlContenido } from "@/componentes/SaltarAlContenido";
 import { activarPush, destinoDelAviso } from "@/servicios/push";
 import { prepararAccesibilidadWeb } from "@/utils/accesibilidadWeb";
 import { colores } from "@/tema";
@@ -74,7 +76,10 @@ function Navegacion() {
 
     return (
         <>
+            <SaltarAlContenido />
             <Stack
+                // Las pestañas tienen su propio <main> por pantalla: así la barra inferior queda fuera de él.
+                screenLayout={({ route, children }) => (route.name === "(pestanas)" ? children : <ContenidoPrincipal>{children}</ContenidoPrincipal>)}
                 screenOptions={{
                     headerTintColor: colores.acento,
                     headerTitleStyle: { color: colores.texto },
@@ -86,7 +91,8 @@ function Navegacion() {
             >
                 <Stack.Protected guard={sesion !== null}>
                     <Stack.Screen name="(pestanas)" options={{ headerShown: false }} />
-                    <Stack.Screen name="producto/[id]" options={{ title: "", presentation: "modal" }} />
+                    {/* Sin título en la barra: el nombre del plato es el h1 de la pantalla, y un título vacío sería un error de accesibilidad. */}
+                    <Stack.Screen name="producto/[id]" options={{ title: "", headerTitle: () => null, presentation: "modal" }} />
                     <Stack.Screen name="carrito" options={{ title: "Tu pedido" }} />
                     <Stack.Screen name="pedido/[id]" options={{ title: "Seguimiento" }} />
                     <Stack.Screen name="pago/[id]" options={{ title: "Pagar", presentation: "modal" }} />

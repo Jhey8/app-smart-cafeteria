@@ -16,6 +16,27 @@ const ESTILOS = `
         color: ${colores.suave} !important;
         opacity: 1;
     }
+    /* WCAG 2.4.1: el enlace «Ir al contenido principal» espera fuera de la vista y aparece al recibir el foco. */
+    .saltar-al-contenido {
+        position: absolute;
+        top: -100px;
+        left: 8px;
+        z-index: 1000;
+        padding: 12px 16px;
+        background: ${colores.superficie};
+        color: ${colores.acentoProfundo};
+        border: 2px solid ${colores.acento};
+        border-radius: 6px;
+        font: 600 16px system-ui, sans-serif;
+        text-decoration: none;
+    }
+    .saltar-al-contenido:focus {
+        top: 8px;
+    }
+    /* El contenido recibe el foco solo para que Tab siga desde ahí; no necesita contorno. */
+    #contenido:focus {
+        outline: none;
+    }
 `;
 
 export function prepararAccesibilidadWeb(): void {

@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { View } from "react-native";
 import { Avatar } from "@/componentes/Avatar";
 import { BarraDePestanas } from "@/componentes/BarraDePestanas";
+import { ContenidoPrincipal } from "@/componentes/ContenidoPrincipal";
 import { Icono } from "@/componentes/Icono";
 import { useCuenta } from "@/estado/cuenta";
 import { useSesion } from "@/estado/sesion";
@@ -11,6 +12,8 @@ export default function Pestanas() {
     return (
         <Tabs
             tabBar={(props) => <BarraDePestanas {...props} />}
+            // Cada pestaña es el <main> de su pantalla; la barra inferior queda fuera, como <nav>.
+            screenLayout={({ children }) => <ContenidoPrincipal>{children}</ContenidoPrincipal>}
             screenOptions={{
                 headerStyle: { backgroundColor: colores.superficie },
                 headerShadowVisible: false,

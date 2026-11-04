@@ -60,7 +60,9 @@ export default function DetalleDelProducto() {
                 </View>
                 <View style={estilos.cuerpo}>
                     <Text style={texto.nota}>{producto.categoria}</Text>
-                    <Text style={texto.titulo}>{producto.nombre}</Text>
+                    <Text role="heading" aria-level={1} style={texto.titulo}>
+                        {producto.nombre}
+                    </Text>
                     <Text style={estilos.precio}>{soles(producto.precio)}</Text>
                     <View style={{ flexDirection: "row", gap: espacio.s, flexWrap: "wrap" }}>
                         {!producto.disponible && <Chip tono="error">Agotado</Chip>}

@@ -56,7 +56,9 @@ export default function Recuperar() {
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colores.superficie }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" bounces={false}>
                 <PantallaDeAcceso proporcion={0.3} altoDePantalla={height} alVolver={() => router.back()}>
-                    <Text style={estilos.titulo}>Recupera tu contraseña</Text>
+                    <Text role="heading" aria-level={1} style={estilos.titulo}>
+                        Recupera tu contraseña
+                    </Text>
 
                     {paso === "pedir" ? (
                         <>

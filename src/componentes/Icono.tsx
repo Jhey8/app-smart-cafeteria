@@ -1,6 +1,6 @@
 import { SymbolView } from "expo-symbols";
 import type { ComponentProps } from "react";
-import type { ColorValue } from "react-native";
+import { View, type ColorValue } from "react-native";
 import { colores } from "@/tema";
 
 type NombreDelSimbolo = ComponentProps<typeof SymbolView>["name"];
@@ -56,5 +56,12 @@ const ICONOS = {
 export type NombreDeIcono = keyof typeof ICONOS;
 
 export function Icono({ nombre, color = colores.texto, tamano = 22 }: { nombre: NombreDeIcono; color?: ColorValue; tamano?: number }) {
-    return <SymbolView name={ICONOS[nombre]} tintColor={color} size={tamano} />;
+    const simbolo = ICONOS[nombre];
+    return (
+        // Decorativo: el botón que lo contiene ya tiene su nombre. Sin esto el lector de pantalla diría el carácter del ícono.
+        <View aria-hidden>
+            {/* En la web se usa el mismo ícono de Material Symbols que en Android. */}
+            <SymbolView name={{ ...simbolo, web: simbolo.android }} tintColor={color} size={tamano} />
+        </View>
+    );
 }

@@ -36,7 +36,9 @@ export default function Entrar() {
         <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colores.superficie }} behavior={Platform.OS === "ios" ? "padding" : undefined}>
             <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled" bounces={false}>
                 <PantallaDeAcceso proporcion={0.42} altoDePantalla={height}>
-                    <Text style={estilos.titulo}>Inicia sesión</Text>
+                    <Text role="heading" aria-level={1} style={estilos.titulo}>
+                        Inicia sesión
+                    </Text>
                     <Campo
                         sobreAzul
                         redondo
